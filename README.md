@@ -40,3 +40,5 @@ gcc -o shell shell.c front.c arena.c parser/ast.c -Wall -Wextra -std=c99
 - The shell uses **fork** to create child processes for commands.
 - **Signals** such as `SIGINT` are partially managed within detached background processes.
 - Pipelining is currently limited to **two commands**.
+- The shell makes use of the open source LEMON LALR(1) parser gen-
+erator.
