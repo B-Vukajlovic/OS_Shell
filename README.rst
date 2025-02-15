@@ -1,36 +1,42 @@
-Implements a basic shell, which allows users to execute
-commands and manage processes. It supports built-in
-commands like 'exit', 'cd', and 'pwd', as well as external
-commands executed via fork and execvp. The shell can handle
-pipelines, command sequences, and process detachment for background
-execution.
+# Basic Shell Implementation
 
-Example commands
-================
+This C program implements a minimal shell that executes commands, manages processes, and handles built-in commands like `exit`, `cd`, and `pwd`. It also supports:
+- **Pipelines** (chaining commands with `|`)
+- **Command Sequences** (running multiple commands in sequence)
+- **Background Execution** (detaching commands from the terminal)
 
-.. code:: sh
+---
 
-   ls
-   sleep 5
+## Features
+- **Builtin Commands**: `exit`, `cd`, `pwd`
+- **External Commands**: Executed via `fork` and `execvp`
+- **Pipelining**: Handles a simple two-command pipeline
+- **Process Management**: Waits for processes to finish, can detach processes into the background
+- **Error Handling**: Basic checks and error messages for invalid operations
 
-.. code:: sh
+---
 
-   mkdir t
-   cd t
-   /bin/pwd
-   exit 42
+## Building
+Compile the code along with its dependencies (e.g., `shell.h`, `arena.h`, `front.h`, `parser/ast.h`, etc.):
 
-.. code:: sh
+gcc -o shell shell.c front.c arena.c parser/ast.c -Wall -Wextra -std=c99
 
-   ## sequences:
-   echo hello; echo world
-   exit 0; echo fail
+*(Adjust source files and paths as needed.)*
 
-.. code:: sh
+---
 
-   ## pipes:
-   ls | grep t
-   ls | more
-   ls | sleep 5
-   sleep 5 | ls
-   ls /usr/lib | grep net | cut -d. -f1 | sort -u
+## Usage
+1. **Run the Shell**:
+
+./shell
+
+2. **Enter Commands**: Type a command, optionally with arguments. Built-in commands (`exit`, `cd`, `pwd`) are handled internally; others use external binaries.
+3. **Use Pipes**: For example, `ls | grep shell`.
+4. **Background Execution**: Detach a process with `&` or via the shell’s built-in background handling (as implemented).
+
+---
+
+## Notes
+- The shell uses **fork** to create child processes for commands.
+- **Signals** such as `SIGINT` are partially managed within detached background processes.
+- Pipelining is currently limited to **two commands**.
