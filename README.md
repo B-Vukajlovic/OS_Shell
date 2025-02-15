@@ -19,9 +19,7 @@ This C program implements a minimal shell that executes commands, manages proces
 ## Building
 Compile the code along with its dependencies (e.g., `shell.h`, `arena.h`, `front.h`, `parser/ast.h`, etc.):
 
-gcc -o shell shell.c front.c arena.c parser/ast.c -Wall -Wextra -std=c99
-
-*(Adjust source files and paths as needed.)*
+make all
 
 ---
 
